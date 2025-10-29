@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "construct_deck"
+version = "0.1.0"
+description = "Deck for connecting to construct cache"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "protobuf>=6.33.0",
+]
+
+[project.scripts]
+construct_deck = "construct_deck.cli:main"
