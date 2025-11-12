@@ -12,7 +12,7 @@ class CreateCommand(Command):
     @override
     @classmethod
     def help_syntax(cls) -> str:
-        return "CREATE PAUR <key> WITH VALUE <value>"
+        return "CREATE PAIR <key> WITH VALUE <value>"
     
     @override
     @classmethod
