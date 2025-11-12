@@ -1,12 +1,12 @@
-import construct_protocol.socket_messages_pb2 as smpb2
-from toml_parser.toml_parser import load_config_toml
+import construct_deck.construct_protocol.socket_messages_pb2 as smpb2
+from construct_deck.toml_parser.toml_parser import load_config_toml
+from .commands.ping import PingCommand
 
 CONFIG_PATH = "config.toml"
 
 def main():
-    ping_request = smpb2.PingRequest()
+    ping_request = PingCommand.generate_req_payload(message="hello")
     config = load_config_toml(CONFIG_PATH)
-    ping_request.ping_message = "Hello"
     print(f"Config: {config}")
     print(f"Ping message: {ping_request.ping_message}")
 

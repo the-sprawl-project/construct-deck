@@ -13,4 +13,4 @@ dependencies = [
 ]
 
 [project.scripts]
-construct_deck = "construct_deck.cli:main"
+construct_deck = "construct_deck.cli.cli:main"
