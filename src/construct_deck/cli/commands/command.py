@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 from enum import IntEnum
 
 class CommandType(IntEnum):
+    """
+    The command type of this SQL query.
+    """
     SENTINEL = -1
     PING = 0
     CREATE = 1
