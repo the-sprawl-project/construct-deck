@@ -24,4 +24,5 @@ push-protos:
 
 build-protos:
 	mkdir -p src/construct_deck/construct_protocol/
-	@protoc --proto_path=src/proto --python_out=src/construct_deck/construct_protocol src/proto/*.proto
+	@protoc --proto_path=src/proto --python_out=src/construct_deck/construct_protocol \
+		--pyi_out=src/construct_deck/construct_protocol src/proto/*.proto
