@@ -3,6 +3,7 @@ from construct_deck.toml_parser.toml_parser import load_config_toml
 from .commands.ping import PingCommand
 from .commands.create import CreateCommand
 from .commands.update import UpdateCommand
+from .commands.delete import DeleteCommand
 
 CONFIG_PATH = "config.toml"
 
@@ -22,6 +23,9 @@ def main():
     
     print("Update request: "
         f"Key: {update_request.pair.key}, Value: {update_request.pair.value}")
+    
+    delete_request = DeleteCommand.generate_req_payload(key="anakin")
+    print(f"Delete request: key: {delete_request.key}")
 
 if __name__ == "__main__":
     main()
