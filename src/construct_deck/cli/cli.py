@@ -6,6 +6,9 @@ from .commands.update import UpdateCommand
 from .commands.delete import DeleteCommand
 from .commands.read import ReadCommand
 
+from .parser.parser import parser
+from .parser.transformer import ConstructTransformer
+
 CONFIG_PATH = "config.toml"
 
 def inline_test():
@@ -31,10 +34,29 @@ def inline_test():
     read_request = ReadCommand.generate_req_payload(key="skywalker")
     print(f"Read Request: Key: {read_request.key}")
 
+
+def parser_test():
+    examples = [
+        'PING hello',
+        'PING "Hello World"',
+        "PING \"Hello There\""
+    ]
+
+    transformer = ConstructTransformer()
+    for text in examples:
+        tree = parser.parse(text)
+        result = transformer.transform(tree)
+        print(f"\nInput: {text}\nParsed: {result}")
+    print("")
+
+
 def main():
     print("====Running inline test====")
     inline_test()
     print("====Inline test complete====")
+    print("====Running parser test====")
+    parser_test()
+    print("====Parser test complete===")
 
 if __name__ == "__main__":
     main()

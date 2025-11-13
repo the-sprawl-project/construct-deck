@@ -1,0 +1,13 @@
+?start: statement+
+
+?statement: ping_stmt
+
+ping_stmt: "PING" message
+
+
+message: ESCAPED_STRING | CNAME
+
+%import common.ESCAPED_STRING
+%import common.CNAME
+%import common.WS
+%ignore WS
