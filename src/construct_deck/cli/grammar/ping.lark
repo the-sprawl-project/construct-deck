@@ -1,0 +1,11 @@
+?start: ping_stmt
+
+ping_stmt: "PING" message
+
+?message: ESCAPED_STRING | CNAME
+
+// imports go here
+%import common.CNAME
+%import common.ESCAPED_STRING
+%import common.WS
+%ignore WS

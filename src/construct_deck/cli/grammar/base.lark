@@ -1,13 +1,11 @@
-?start: statement+
+?start: statement
+
+%import .ping (ping_stmt)
 
 ?statement: ping_stmt
 
-ping_stmt: "PING" message
-
-
-message: ESCAPED_STRING | CNAME
-
-%import common.ESCAPED_STRING
+// imports go below
 %import common.CNAME
+%import common.ESCAPED_STRING
 %import common.WS
 %ignore WS

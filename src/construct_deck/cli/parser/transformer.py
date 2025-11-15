@@ -2,20 +2,19 @@ from lark import Transformer, Token
 
 class ConstructTransformer(Transformer):
     def message(self, args):
-        # message → a single Token, either ESCAPED_STRING or CNAME
-        token = args[0]
+        return self._strip(args)
+
+    def target(self, args):
+        return self._strip(args)
+
+    def _strip(self, token):
         if isinstance(token, Token):
-            value = token.value
-            # Remove quotes if present
-            if value.startswith('"') and value.endswith('"'):
-                value = value[1:-1]
-            return value
+            val = token.value
+            if val.startswith('"') and val.endswith('"'):
+                val = val[1:-1]
+            return val
         return str(token)
 
     def ping_stmt(self, args):
         msg = args[0]
-        # Strip quotes for escaped strings
-        if msg.startswith('"') and msg.endswith('"'):
-            msg = msg[1:-1]
-        
-        return ("PING", msg)
+        return ("PING", self.message(msg))

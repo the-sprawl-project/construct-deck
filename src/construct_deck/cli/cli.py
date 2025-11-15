@@ -44,7 +44,7 @@ def parser_test():
 
     transformer = ConstructTransformer()
     for text in examples:
-        tree = parser.parse(text)
+        tree = parser.parse(text, start='start')
         result = transformer.transform(tree)
         print(f"\nInput: {text}\nParsed: {result}")
     print("")
