@@ -21,3 +21,14 @@ class ConstructTransformer(Transformer):
     def ping_stmt(self, args):
         msg = args[0]
         return ("PING", msg)
+    
+    def create__CNAME(self, args):
+        return self._strip(args)
+    
+    def create__ESCAPED_STRING(self, args):
+        return self._strip(args)
+    
+    def create_stmt(self, args):
+        key = args[0]
+        val = args[1]
+        return ("CREATE", key, val)

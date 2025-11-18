@@ -1,0 +1,12 @@
+?start: create_stmt
+
+create_stmt: "CREATE PAIR" key "WITH VALUE" value
+
+?key: CNAME
+?value: ESCAPED_STRING | CNAME
+
+// imports go here
+%import common.CNAME
+%import common.ESCAPED_STRING
+%import common.WS
+%ignore WS

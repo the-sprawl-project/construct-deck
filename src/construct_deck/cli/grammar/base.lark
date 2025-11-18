@@ -1,8 +1,9 @@
 ?start: statement
 
 %import .ping (ping_stmt)
+%import .create (create_stmt)
 
-?statement: ping_stmt
+?statement: ping_stmt | create_stmt
 
 // imports go below
 %import common.CNAME

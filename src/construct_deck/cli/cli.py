@@ -50,6 +50,20 @@ def parser_test():
     print("")
 
 
+def create_test():
+    examples = [
+        'CREATE PAIR hello WITH VALUE goodbye',
+        'CREATE PAIR buenos WITH VALUE "buenos dias"'
+    ]
+
+    transformer = ConstructTransformer()
+    for text in examples:
+        tree = parser.parse(text, start='start')
+        result = transformer.transform(tree)
+        print(f"\nInput: {text}\nParsed: {result}")
+    print("")
+   
+
 def main():
     print("====Running inline test====")
     inline_test()
@@ -57,6 +71,10 @@ def main():
     print("====Running parser test====")
     parser_test()
     print("====Parser test complete===")
+    print("====Running create test====")
+    create_test()
+    print("====Create test complete===")
+
 
 if __name__ == "__main__":
     main()
