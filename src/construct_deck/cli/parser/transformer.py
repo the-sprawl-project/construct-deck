@@ -1,11 +1,7 @@
-from lark import Transformer, Token
+from lark import Transformer
+from lark.lexer import Token
 
 class ConstructTransformer(Transformer):
-    def message(self, args):
-        return self._strip(args)
-
-    def target(self, args):
-        return self._strip(args)
 
     def _strip(self, token):
         if isinstance(token, Token):
@@ -15,6 +11,13 @@ class ConstructTransformer(Transformer):
             return val
         return str(token)
 
+    # each rule type and token type requires a parse
+    def ping__CNAME(self, args):
+        return self._strip(args)
+    
+    def ping__ESCAPED_STRING(self, args):
+        return self._strip(args)
+
     def ping_stmt(self, args):
         msg = args[0]
-        return ("PING", self.message(msg))
+        return ("PING", msg)
