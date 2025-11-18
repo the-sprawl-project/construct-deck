@@ -4,6 +4,9 @@ import construct_deck.construct_protocol.socket_messages_pb2 as smpb2
 
 class ReadCommand(Command):
 
+    def __init__(self, key):
+        self._key = key
+
     @override
     @classmethod
     def command_type(cls) -> CommandType:

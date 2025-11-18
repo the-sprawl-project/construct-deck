@@ -1,3 +1,4 @@
+from construct_deck.cli.commands.command import CommandType
 from lark import Transformer
 from lark.lexer import Token
 
@@ -11,7 +12,9 @@ class ConstructTransformer(Transformer):
             return val
         return str(token)
 
-    # each rule type and token type requires a parse
+    ### Each rule type and token type requires a parse ###
+
+    # Rules for PING go below
     def ping__CNAME(self, args):
         return self._strip(args)
     
@@ -19,9 +22,14 @@ class ConstructTransformer(Transformer):
         return self._strip(args)
 
     def ping_stmt(self, args):
+        '''
+        The expected syntax for PING is PING <stmt>, which can be either
+        a single word or an escaped string.
+        '''
         msg = args[0]
-        return ("PING", msg)
+        return (CommandType.PING, msg)
     
+    # Rules for CREATE go below
     def create__CNAME(self, args):
         return self._strip(args)
     
@@ -29,6 +37,11 @@ class ConstructTransformer(Transformer):
         return self._strip(args)
     
     def create_stmt(self, args):
+        '''
+        We expect the create statement to contain two entities: The key of the
+        create statement and the value associated with the key. The key is
+        expected to be a single word, while the value may be an escaped string
+        '''
         key = args[0]
         val = args[1]
-        return ("CREATE", key, val)
+        return (CommandType.CREATE, key, val)

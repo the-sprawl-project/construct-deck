@@ -4,6 +4,10 @@ import construct_deck.construct_protocol.socket_messages_pb2 as smpb2
 
 class UpdateCommand(Command):
 
+    def __init__(self, key, value):
+        self._key = key
+        self._value = value
+
     @override
     @classmethod
     def command_type(cls) -> CommandType:

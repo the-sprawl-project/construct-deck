@@ -4,6 +4,9 @@ import construct_deck.construct_protocol.socket_messages_pb2 as smpb2
 
 class PingCommand(Command):
 
+    def __init__(self, msg):
+        self._msg = msg
+
     @override
     @classmethod
     def command_type(cls) -> CommandType:
