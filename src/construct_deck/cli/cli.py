@@ -12,26 +12,24 @@ from .parser.transformer import ConstructTransformer
 CONFIG_PATH = "config.toml"
 
 def inline_test():
-    ping_request = PingCommand.generate_req_payload(message="hello")
+    ping_request = PingCommand("hello").generate_req_payload()
     config = load_config_toml(CONFIG_PATH)
     print(f"Config: {config}")
     print(f"Ping message: {ping_request.ping_message}")
 
-    create_request = CreateCommand.generate_req_payload(
-        key="obiwan", value="kenobi")
+    create_request = CreateCommand("obiwan", "kenobi").generate_req_payload()
     print("Create Request: "
         f"Key: {create_request.pair.key}, Value: {create_request.pair.value}")
     
-    update_request = UpdateCommand.generate_req_payload(
-        key="general", value="grievous")
+    update_request = UpdateCommand("general", "grievous").generate_req_payload()
     
     print("Update request: "
         f"Key: {update_request.pair.key}, Value: {update_request.pair.value}")
     
-    delete_request = DeleteCommand.generate_req_payload(key="anakin")
+    delete_request = DeleteCommand("anakin").generate_req_payload()
     print(f"Delete request: key: {delete_request.key}")
     
-    read_request = ReadCommand.generate_req_payload(key="skywalker")
+    read_request = ReadCommand("skywalker").generate_req_payload()
     print(f"Read Request: Key: {read_request.key}")
 
 

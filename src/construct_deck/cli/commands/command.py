@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import IntEnum
+from typing import Any
 
 class CommandType(IntEnum):
     """
@@ -26,13 +27,16 @@ class Command(ABC):
     @abstractmethod
     def help_syntax(cls) -> str:
         return "Override Me"
-    
-    # Generate request payload for this command. Must be overridden by all
-    # inheritors of this class to generate a request payload based on the
-    # values in kwargs
-    @classmethod
+
+    # Build the protobuf object
     @abstractmethod
-    def generate_req_payload(cls, **kwargs):
+    def make_proto(self) ->Any:
+        pass
+
+    # Generate request payload for this command, and is dependent on the
+    # object.
+    @abstractmethod
+    def generate_req_payload(self) -> Any:
         pass
 
     # Parse response for this command. Expects a byte array as input, parses

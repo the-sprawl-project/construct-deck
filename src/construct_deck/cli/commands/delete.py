@@ -18,17 +18,16 @@ class DeleteCommand(Command):
         return "DELETE PAIR <key>"
     
     @override
-    @classmethod
-    def generate_req_payload(cls, **kwargs):
-        # Expect a key to drop
-        key = kwargs.get("key", None)
-        if key is None:
-            raise Exception("Syntax Error: DELETE expects a key")
-        
+    def make_proto(self):
+        key = self._key
         drop_message = smpb2.DeleteKVPairReq()
         drop_message.key = key
 
         return drop_message
+    
+    @override
+    def generate_req_payload(self):
+        return self.make_proto()
     
     @override
     @classmethod

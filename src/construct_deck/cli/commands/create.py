@@ -8,6 +8,18 @@ class CreateCommand(Command):
         self._key = key
         self._value = value
 
+    
+    @override
+    def make_proto(self):
+        create_message = smpb2.CreateKVPairReq()
+        create_pair = smpb2.KeyValuePair()
+
+        create_pair.key = self._key
+        create_pair.value = self._value
+        create_message.pair.CopyFrom(create_pair)
+
+        return create_message
+
     @override
     @classmethod
     def command_type(cls) -> CommandType:
@@ -19,24 +31,8 @@ class CreateCommand(Command):
         return "CREATE PAIR <key> WITH VALUE <value>"
     
     @override
-    @classmethod
-    def generate_req_payload(cls, **kwargs):
-        # Expect a key followed by a message
-        key = kwargs.get("key", None)
-        if key is None:
-            raise Exception("Syntax error: CREATE expects a key")
-        value = kwargs.get("value", None)
-        if value is None:
-            raise Exception ("Syntax Error: CREATE expects a value")
-        
-        create_message = smpb2.CreateKVPairReq()
-        create_pair = smpb2.KeyValuePair()
-
-        create_pair.key = key
-        create_pair.value = value
-        create_message.pair.CopyFrom(create_pair)
-
-        return create_message
+    def generate_req_payload(self):
+        return self.make_proto()    
     
     @override
     @classmethod

@@ -1,5 +1,5 @@
 from .command import Command, CommandType
-from typing import override
+from typing import Any, override
 import construct_deck.construct_protocol.socket_messages_pb2 as smpb2
 
 class ReadCommand(Command):
@@ -18,10 +18,8 @@ class ReadCommand(Command):
         return "READ PAIR {key}"
     
     @override
-    @classmethod
-    def generate_req_payload(cls, **kwargs):
-        # Expect a key to read
-        key = kwargs.get("key", None)
+    def make_proto(self):
+        key = self._key
         if key is None:
             raise Exception("Syntax Error: READ expects a key")
         
@@ -29,6 +27,10 @@ class ReadCommand(Command):
         read_message.key = key
 
         return read_message
+    
+    @override
+    def generate_req_payload(self):
+        return self.make_proto()
     
     @override
     @classmethod
