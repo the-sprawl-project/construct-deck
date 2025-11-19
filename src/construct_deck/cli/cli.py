@@ -51,7 +51,8 @@ def parser_test():
 def create_test():
     examples = [
         'CREATE PAIR hello WITH VALUE goodbye',
-        'CREATE PAIR buenos WITH VALUE "buenos dias"'
+        'CREATE PAIR buenos WITH VALUE "dias"',
+        'CREATE PAIR greeting WITH VALUE "hello world!"'
     ]
 
     transformer = ConstructTransformer()

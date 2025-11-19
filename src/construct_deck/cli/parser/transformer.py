@@ -1,6 +1,13 @@
-from construct_deck.cli.commands.command import CommandType
 from lark import Transformer
 from lark.lexer import Token
+
+# command imports
+from construct_deck.cli.commands.command import CommandType
+from construct_deck.cli.commands.ping import PingCommand
+from construct_deck.cli.commands.create import CreateCommand
+from construct_deck.cli.commands.delete import DeleteCommand
+from construct_deck.cli.commands.read import ReadCommand
+from construct_deck.cli.commands.update import UpdateCommand
 
 class ConstructTransformer(Transformer):
 
@@ -27,7 +34,7 @@ class ConstructTransformer(Transformer):
         a single word or an escaped string.
         '''
         msg = args[0]
-        return (CommandType.PING, msg)
+        return (CommandType.PING, PingCommand(msg))
     
     # Rules for CREATE go below
     def create__CNAME(self, args):
@@ -44,4 +51,4 @@ class ConstructTransformer(Transformer):
         '''
         key = args[0]
         val = args[1]
-        return (CommandType.CREATE, key, val)
+        return (CommandType.CREATE, CreateCommand(key, val))
